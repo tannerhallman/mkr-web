@@ -79,31 +79,22 @@ export default function Simple() {
                 textTransform={'uppercase'}
                 mb={'4'}
               >
-                NFT Perks
+                Perks
               </Text>
 
               <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}>
                 <List spacing={2}>
                   <ListItem>
                     {renderIcon()}
-                    Bar revenue sharing
+                    Example 1
                   </ListItem>
-                  <ListItem>{renderIcon()} Staking payouts</ListItem>{' '}
-                  <ListItem>
-                    {renderIcon()} 50% of royalties back to community
-                  </ListItem>
-                  <ListItem>{renderIcon()} Free merch</ListItem>
-                  <ListItem>{renderIcon()} Future NFTs & giveaways</ListItem>
+                  <ListItem>{renderIcon()} Example 2</ListItem>{' '}
+                  <ListItem>{renderIcon()} Example 3</ListItem>
                 </List>
                 <List spacing={2}>
-                  <ListItem>{renderIcon()} Dog charity donations</ListItem>
-                  <ListItem>
-                    {renderIcon()} Tiered bar tab discounts for holding NFTs
-                  </ListItem>
-                  <ListItem>
-                    {renderIcon()} Free lifetime membership for holders
-                  </ListItem>
-                  <ListItem>{renderIcon()}Access to Private events</ListItem>
+                  <ListItem>{renderIcon()} Example 3</ListItem>
+                  <ListItem>{renderIcon()} Example 3</ListItem>
+                  <ListItem>{renderIcon()} Example 3</ListItem>
                 </List>
               </SimpleGrid>
             </Box>

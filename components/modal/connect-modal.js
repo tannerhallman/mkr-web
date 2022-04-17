@@ -160,7 +160,6 @@ export default function ConnectModal({ isOpen, onClose }) {
           {selectedWallet === Wallet.Extension && (
             <ExtensionLogin onClose={onCloseModal} />
           )}
-          {/* {selectedWallet === Wallet.Elrond && <LedgerLogin />} */}
         </ModalBody>
         {selectedWallet === Wallet.None && (
           <ModalFooter paddingBottom={30}>
