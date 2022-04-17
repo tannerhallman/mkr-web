@@ -1,0 +1,45 @@
+{
+  "name": "egldn-web",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@chakra-ui/icons": "^1.0.15",
+    "@chakra-ui/react": "^1.6.8",
+    "@elrondnetwork/dapp-core": "1.0.41",
+    "@elrondnetwork/erdjs": "^9.2.4",
+    "@emotion/react": "^11.8.2",
+    "@emotion/styled": "^11",
+    "@fontsource/montserrat": "^4.5.7",
+    "@sentry/react": "^6.19.4",
+    "@sentry/tracing": "^6.19.4",
+    "@web3-react/core": "^6.1.9",
+    "@web3-react/injected-connector": "^6.0.7",
+    "browserify-fs": "^1.0.0",
+    "crypto-browserify": "^3.12.0",
+    "framer-motion": "^5",
+    "http-browserify": "^1.7.0",
+    "https-browserify": "^1.0.0",
+    "lottie-react": "^2.2.1",
+    "next": "^12.1.4",
+    "os-browserify": "^0.3.0",
+    "path-browserify": "^1.0.1",
+    "qrcode": "^1.5.0",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-gtm-module": "^2.0.11",
+    "react-icons": "^4.3.1",
+    "react-query": "^3.34.19",
+    "stream-browserify": "^3.0.0",
+    "web3": "^1.5.3"
+  },
+  "devDependencies": {
+    "eslint": "7.32.0",
+    "eslint-config-next": "11.1.2"
+  }
+}

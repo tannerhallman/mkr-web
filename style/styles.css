@@ -1,0 +1,24 @@
+html {
+  overflow-x: hidden;
+}
+
+.hero-video {
+  object-fit: cover;
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+}
+
+.interpolated-text p {
+  margin-bottom: 12px !important;
+}
+
+.icon {
+  display: inline-block;
+  background-size: cover;
+}
+
+.icon-rev-point {
+  background-image: url('/img/rev-point.svg');
+}
