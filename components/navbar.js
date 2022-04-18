@@ -191,7 +191,8 @@ const WalletButton = ({
         <Button
           onClick={onOpenConnect}
           variant={'solid'}
-          colorScheme={'green'}
+          // colorScheme={'green'}
+          backgroundColor='#B13FFF'
           size={'md'}
           mr={4}
           leftIcon={<AddIcon />}

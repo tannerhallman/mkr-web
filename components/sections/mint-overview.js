@@ -85,16 +85,15 @@ export default function Simple() {
               <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}>
                 <List spacing={2}>
                   <ListItem>
-                    {renderIcon()}
-                    Example 1
+                    {renderIcon()} 1.5x Earning towards $MKR Token
                   </ListItem>
-                  <ListItem>{renderIcon()} Example 2</ListItem>{' '}
-                  <ListItem>{renderIcon()} Example 3</ListItem>
+                  <ListItem>{renderIcon()} 1.5x Earning towards XP</ListItem>{' '}
                 </List>
                 <List spacing={2}>
-                  <ListItem>{renderIcon()} Example 3</ListItem>
-                  <ListItem>{renderIcon()} Example 3</ListItem>
-                  <ListItem>{renderIcon()} Example 3</ListItem>
+                  <ListItem>
+                    {renderIcon()} Exclusive Voting rights for CDO
+                  </ListItem>
+                  <ListItem>{renderIcon()} Golden accessories/traits</ListItem>
                 </List>
               </SimpleGrid>
             </Box>

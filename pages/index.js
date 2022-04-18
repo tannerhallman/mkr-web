@@ -27,7 +27,7 @@ export default function Home() {
           lineHeight={1.1}
           fontWeight={600}
           fontSize={{ base: '4xl', sm: '5xl', lg: '7xl' }}
-          bgGradient='linear(to-l, #B13FFF, #ffffff)'
+          bgGradient='linear(to-l, #B13FFF, #009FE1)'
           bgClip='text'
         >
           {config.projectName} NFT
