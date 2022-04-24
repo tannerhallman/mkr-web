@@ -113,7 +113,11 @@ export default function MintSuccess() {
                 borderColor='white'
                 borderWidth={3}
               >
-                <Image src='/img/mint-success.gif' alt='Success' w='100%' />
+                <Image
+                  src='https://media.giphy.com/media/IFqM1ExPOENyHS0jrL/giphy.gif'
+                  alt='Success'
+                  w='100%'
+                />
               </Box>
             </FadeInWhenVisible>
           </Box>
