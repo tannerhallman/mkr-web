@@ -13,8 +13,8 @@ import { useEffect, useState } from 'react';
 
 import config from '../constants/config';
 
-function getCountdown() {
-  const diff = config.releaseDate - Date.now();
+function getCountdown(saleDate) {
+  const diff = saleDate - Date.now();
   const isFinished = diff < 0;
   const days = Math.floor(diff / (1000 * 60 * 60 * 24));
   const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -60,10 +60,13 @@ function CountdownTimerSection(props) {
 }
 
 export default function CountdownTimer({ onFinish }) {
+  const saleDateLabel = 'Whitelist Sale';
+  const saleDate = config.whitelistDate;
+
   const [
     { days, hours, minutes, seconds, isFinished },
     setCountdown
-  ] = useState(getCountdown());
+  ] = useState(getCountdown(saleDate));
   const [delay, setDelay] = useState(1000);
 
   useEffect(() => {
@@ -74,7 +77,7 @@ export default function CountdownTimer({ onFinish }) {
   }, [isFinished, onFinish]);
 
   useInterval(() => {
-    setCountdown(getCountdown());
+    setCountdown(getCountdown(saleDate));
   }, delay);
 
   return (
@@ -97,7 +100,7 @@ export default function CountdownTimer({ onFinish }) {
           <CountdownTimerSection header={seconds} text='seconds' />
         </Stack>
         <Center marginTop={'1rem'}>
-          <Text>until the Public Sale</Text>
+          <Text>{saleDateLabel}</Text>
         </Center>
       </Container>
     </Container>
