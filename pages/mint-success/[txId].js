@@ -1,4 +1,4 @@
-import { CheckCircleIcon } from '@chakra-ui/icons';
+import { CheckCircleIcon, Icon } from '@chakra-ui/icons';
 import { Container, Heading } from '@chakra-ui/layout';
 import { useBreakpointValue } from '@chakra-ui/media-query';
 import {
@@ -12,6 +12,9 @@ import {
 } from '@chakra-ui/react';
 
 import { useGetLoginInfo } from '@elrondnetwork/dapp-core';
+
+import { BsTrophyFill } from 'react-icons/bs';
+import { VscDebugRestart } from 'react-icons/vsc';
 
 import { useRouter } from 'next/router';
 
@@ -27,6 +30,9 @@ export default function MintSuccess() {
   const txId = router.query.txId;
   // todo : use txID!!!
 
+  function mintMore() {
+    router.push('/mint');
+  }
   if (!isLoggedIn) {
     return (
       <Container maxW='container.xl' marginY='3rem' marginBottom='8rem'>
@@ -52,7 +58,7 @@ export default function MintSuccess() {
                 paddingY='3rem'
               >
                 <Box marginBottom='2rem'>
-                  <CheckCircleIcon w={16} h={16} color='white' />
+                  <Icon as={BsTrophyFill} w={16} h={16} color='white' />
                 </Box>
                 <Box marginBottom='2rem'>
                   <Heading as='h4' color='white'>
@@ -84,6 +90,17 @@ export default function MintSuccess() {
                   >
                     View Transaction
                   </Button>
+
+                  <Button
+                    color='white'
+                    _active={{ background: 'whiteAlpha.300' }}
+                    _hover={{ background: 'whiteAlpha.300' }}
+                    background='blackAlpha.600'
+                    onClick={mintMore}
+                  >
+                    <Icon as={VscDebugRestart} />
+                    Mint Again
+                  </Button>
                 </Box>
               </Box>
             </FadeInWhenVisible>
@@ -96,7 +113,7 @@ export default function MintSuccess() {
                 borderColor='white'
                 borderWidth={3}
               >
-                <Image src='img/nft.jpeg' alt='NFTs' w='100%' />
+                <Image src='/img/mint-success.gif' alt='Success' w='100%' />
               </Box>
             </FadeInWhenVisible>
           </Box>
