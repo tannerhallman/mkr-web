@@ -13,7 +13,8 @@ const FAQS = [
   },
   {
     question: `${config.projectName} NFTs have what type of utility?`,
-    answer: ''
+    answer:
+      'They are in-game NFTs that can be used to race and earn MKR points.'
   },
   {
     question: 'How can I purchase one?',
@@ -21,7 +22,11 @@ const FAQS = [
       <Text>
         When the NFTs are available for purchase, connect to your Elrond wallet.
         Once connected, you'll be able to designate how many you'd like and
-        purchase your NFTs.
+        purchase your NFTs. Minting will be done through the{' '}
+        <Link href='/mint' color='teal.500'>
+          mint
+        </Link>{' '}
+        page.
       </Text>
     )
   },
@@ -31,7 +36,12 @@ const FAQS = [
   },
   {
     question: 'Will there be whitelist?',
-    answer: 'Yes. '
+    answer: 'Yes. There 500 spots available.'
+  },
+  {
+    question: 'How to get whitelist?',
+    answer:
+      'To be eligible for the whitelist, join the discord, be active, and invite friends! Rules are in the #🏁┃how-to-whitelist channel'
   },
   {
     question: 'How much will each NFT cost?',

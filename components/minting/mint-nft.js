@@ -348,7 +348,14 @@ export default function Mint() {
               borderColor='white'
               borderWidth={3}
             >
-              <Image src='img/mint-image.gif' alt={config.projectName} w='100%' />
+              <Image
+                src={
+                  'https://media.giphy.com/media/S33ngdsjxeiHUfRQW8/giphy.gif'
+                }
+                alt={config.projectName}
+                w='100%'
+                env
+              />
             </Box>
           </FadeInWhenVisible>
         </Box>
