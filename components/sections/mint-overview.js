@@ -20,6 +20,7 @@ import {
 import { CheckIcon } from '@chakra-ui/icons';
 
 import config from '../../constants/config';
+
 import SectionHeader from './section-header';
 export default function Simple() {
   function renderIcon() {
@@ -37,7 +38,7 @@ export default function Simple() {
           <Image
             rounded={'md'}
             alt={'product image'}
-            src={'img/mint-image.gif'}
+            src={'https://media.giphy.com/media/S33ngdsjxeiHUfRQW8/giphy.gif'}
             fit={'cover'}
             align={'center'}
             w={'100%'}
@@ -79,21 +80,35 @@ export default function Simple() {
                 textTransform={'uppercase'}
                 mb={'4'}
               >
-                Perks
+                Specs
               </Text>
 
               <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}>
                 <List spacing={2}>
-                  <ListItem>
-                    {renderIcon()} 1.5x Earning towards $MKR Token
-                  </ListItem>
-                  <ListItem>{renderIcon()} 1.5x Earning towards XP</ListItem>{' '}
+                  <ListItem>{renderIcon()} 3D animated NFT</ListItem>
                 </List>
                 <List spacing={2}>
-                  <ListItem>
-                    {renderIcon()} Exclusive Voting rights for CDO
-                  </ListItem>
-                  <ListItem>{renderIcon()} Golden accessories/traits</ListItem>
+                  <ListItem>{renderIcon()} Kart use in game</ListItem>
+                </List>
+              </SimpleGrid>
+              <Text
+                fontSize={{ base: '16px', lg: '18px' }}
+                color={useColorModeValue('white.500')}
+                fontWeight={'500'}
+                textTransform={'uppercase'}
+                mb={'4'}
+                marginTop='10'
+              >
+                Perks
+              </Text>
+              <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}>
+                <List spacing={2}>
+                  <ListItem>{renderIcon()} 1.5x MKR coin farm rate</ListItem>
+                  <ListItem>{renderIcon()} Community Voting Rights</ListItem>
+                </List>
+                <List spacing={2}>
+                  <ListItem>{renderIcon()} 3x level progression</ListItem>
+                  <ListItem>{renderIcon()} Golden Traits</ListItem>
                 </List>
               </SimpleGrid>
             </Box>
