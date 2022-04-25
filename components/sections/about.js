@@ -19,16 +19,20 @@ import {
 } from '@chakra-ui/react';
 import { CheckIcon } from '@chakra-ui/icons';
 
+import { useRouter } from 'next/router';
+
 import config from '../../constants/config';
 
 import SectionHeader from './section-header';
 export default function Simple() {
+  const router = useRouter();
+
   function renderIcon() {
     return <ListIcon as={CheckIcon} color='green.500' />;
   }
   return (
     <Container maxW={'7xl'}>
-      <SectionHeader color='#00b0ee' title='Mint' end />
+      <SectionHeader color='#00b0ee' title='About' end />
       <SimpleGrid
         columns={{ base: 1, lg: 2 }}
         spacing={{ base: 8, md: 10 }}
@@ -120,7 +124,6 @@ export default function Simple() {
             mt={8}
             size={'lg'}
             py={'7'}
-            disabled
             bg={useColorModeValue('gray.900', 'gray.50')}
             color={useColorModeValue('white', 'gray.900')}
             textTransform={'uppercase'}
@@ -128,9 +131,11 @@ export default function Simple() {
               transform: 'translateY(2px)',
               boxShadow: 'lg'
             }}
+            onClick={() => {
+              router.push('/mint');
+            }}
           >
-            Minting {config.releaseDate.toLocaleDateString()} at{' '}
-            {config.releaseDate.toLocaleTimeString()}
+            Go to Mint
           </Button>
         </Stack>
       </SimpleGrid>

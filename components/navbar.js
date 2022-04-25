@@ -16,7 +16,8 @@ import {
   useColorMode,
   Stack,
   Tag,
-  TagLabel
+  TagLabel,
+  Image
 } from '@chakra-ui/react';
 import {
   HamburgerIcon,
@@ -38,10 +39,9 @@ import { motion } from 'framer-motion';
 import { useCallback } from 'react';
 
 import config from '../constants/config';
-import useHover from '../hooks/useHover';
+import { MAIN_NAV } from '../constants/nav';
 
 import ConnectModal from './modal/connect-modal';
-const Links = ['mint', 'faq'];
 
 const supportLightMode = false;
 
@@ -89,11 +89,20 @@ export default function Navbar() {
           onClick={isOpen ? onClose : onOpen}
         />
         <HStack spacing={8} alignItems={'center'}>
-          <Box>{config.projectName}</Box>
+          <Box>
+            <Link href={'/'}>
+              <Image
+                src={'/img/logo.png'}
+                alt={config.projectName}
+                // width={3}
+                height={25}
+              />
+            </Link>
+          </Box>
           <HStack as={'nav'} spacing={4} display={{ base: 'none', md: 'flex' }}>
-            {Links.map(link => (
-              <NavLink key={link} href={link}>
-                {link}
+            {MAIN_NAV.map(item => (
+              <NavLink key={item.label} href={item.href}>
+                {item.label}
               </NavLink>
             ))}
           </HStack>
@@ -145,14 +154,14 @@ export default function Navbar() {
       {isOpen ? (
         <Box pb={4} display={{ md: 'none' }}>
           <Stack as={'nav'} spacing={4}>
-            {Links.map(link => (
+            {MAIN_NAV.map(item => (
               <NavLink
-                key={link}
-                href={link}
+                key={item.label}
+                href={item.href}
                 backgroundColor={navLinkBackgroundColor}
                 textColor={textColor}
               >
-                {link}
+                {item.label}
               </NavLink>
             ))}
             {supportLightMode && <ThemeToggle />}
@@ -173,7 +182,7 @@ const NavLink = ({ children, href, backgroundColor, textColor }) => (
       bg: backgroundColor
     }}
     textColor={textColor}
-    href={`/#${href}`}
+    href={`${href}`}
   >
     {children}
   </Link>

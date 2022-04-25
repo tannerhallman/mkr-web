@@ -60,7 +60,7 @@ function CountdownTimerSection(props) {
 }
 
 export default function CountdownTimer({ onFinish }) {
-  const saleDateLabel = 'Whitelist Sale';
+  const saleDateLabel = 'to the whitelist sale';
   const saleDate = config.whitelistDate;
 
   const [
