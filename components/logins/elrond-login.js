@@ -1,11 +1,13 @@
 import { Flex } from '@chakra-ui/layout';
 import { Spinner } from '@chakra-ui/spinner';
+
 import { loginServices } from '@elrondnetwork/dapp-core';
+
 import { useEffect } from 'react';
 
-export default function ElrondLogin() {
+export default function ElrondLogin({ callbackRoute }) {
   const [initiateLogin] = loginServices.useWebWalletLogin({
-    callbackRoute: '/'
+    callbackRoute
   });
 
   useEffect(() => {

@@ -12,6 +12,8 @@ import {
 } from '@chakra-ui/modal';
 import { Tooltip } from '@chakra-ui/tooltip';
 
+import { useRouter } from 'next/router';
+
 import { useCallback, useEffect, useState } from 'react';
 
 import ElrondLogin from '../logins/elrond-login';
@@ -73,6 +75,9 @@ export default function ConnectModal({ isOpen, onClose }) {
       localStorage.removeItem('walletconnect');
     }
   }, [selectedWallet]);
+
+  const router = useRouter();
+  const callbackRoute = router.pathname;
 
   return (
     <Modal isOpen={isOpen} onClose={onCloseModal} isCentered size='lg'>
@@ -154,11 +159,16 @@ export default function ConnectModal({ isOpen, onClose }) {
             </VStack>
           )}
           {selectedWallet === Wallet.Maiar && (
-            <MaiarLogin onClose={onCloseModal} />
+            <MaiarLogin callbackRoute={callbackRoute} onClose={onCloseModal} />
           )}
-          {selectedWallet === Wallet.Elrond && <ElrondLogin />}
+          {selectedWallet === Wallet.Elrond && (
+            <ElrondLogin callbackRoute={callbackRoute} />
+          )}
           {selectedWallet === Wallet.Extension && (
-            <ExtensionLogin onClose={onCloseModal} />
+            <ExtensionLogin
+              callbackRoute={callbackRoute}
+              onClose={onCloseModal}
+            />
           )}
         </ModalBody>
         {selectedWallet === Wallet.None && (

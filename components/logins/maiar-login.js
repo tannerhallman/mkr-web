@@ -1,11 +1,15 @@
 import { Box, Link, Text } from '@chakra-ui/layout';
 import { Button } from '@chakra-ui/react';
+
 import { loginServices, useGetLoginInfo } from '@elrondnetwork/dapp-core';
+
 import platform from 'platform';
+
 import QRCode from 'qrcode';
+
 import React, { useCallback, useEffect, useState } from 'react';
 
-export default function MaiarLogin({ onClose }) {
+export default function MaiarLogin({ onClose, callbackRoute }) {
   const { isLoggedIn } = useGetLoginInfo();
   const [qrSvg, setQrSvg] = useState('');
 
@@ -14,8 +18,8 @@ export default function MaiarLogin({ onClose }) {
     { error },
     { uriDeepLink, walletConnectUri }
   ] = loginServices.useWalletConnectLogin({
-    callbackRoute: window.location.origin,
-    logoutRoute: '/',
+    callbackRoute,
+    logoutRoute: callbackRoute,
     shouldLoginUser: true
   });
 
