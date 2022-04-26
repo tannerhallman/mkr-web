@@ -27,15 +27,14 @@ import { useRouter } from 'next/router';
 
 import React, { useEffect, useState, useCallback } from 'react';
 
-import FadeInWhenVisible from '../animation/fade-in-while-visible';
-import config from '../../constants/config';
-
-import { convertToDecimalToHex } from './smartContractUtils/funcs';
+import { convertToDecimalToHex } from '../smartContractUtils/funcs';
+import FadeInWhenVisible from '../../animation/fade-in-while-visible';
+import config from '../../../constants/config';
 
 const DEFAULT_TIMEOUT = 5 * 60 * 1000;
 const mintFunctionName = process.env.NEXT_PUBLIC_MINT_FUNC_NAME || 'mint';
 
-export default function MintNFTForm({ isWhitelist = false }) {
+export default function MintNFTForm({ quantityAllowed = 0, nftPrice }) {
   const { address } = useGetAccountInfo();
   const {
     network: { egldLabel }
@@ -50,7 +49,10 @@ export default function MintNFTForm({ isWhitelist = false }) {
 
   const [errorString, setErrorString] = useState(null);
 
-  const toast = useToast({ position: 'bottom', variant: 'solid' });
+  const toast = useToast({
+    position: 'bottom',
+    variant: 'solid'
+  });
 
   const { error, onAbort } = useSignTransactions();
 
@@ -157,14 +159,12 @@ export default function MintNFTForm({ isWhitelist = false }) {
     if (hash) {
       if (hash.error) {
         setErrorString(hash.error);
-        debugger;
         setAttemptingTx(false);
       } else if (hash.sessionId) {
         setTransactionSessionId(hash.sessionId);
       }
     } else {
       setAttemptingTx(false);
-      debugger;
     }
   }
 
@@ -203,6 +203,14 @@ export default function MintNFTForm({ isWhitelist = false }) {
     );
   }
 
+  function getOptions() {
+    // trash
+    const arr = [];
+    for (var i = 1; i < quantityAllowed + 1; i++) {
+      arr.push(i);
+    }
+    return arr;
+  }
   return (
     <>
       <FormControl marginY='2rem' id='quantity'>
@@ -217,37 +225,35 @@ export default function MintNFTForm({ isWhitelist = false }) {
           boxShadow='xl'
           onChange={input => setQuantity(input.target.value)}
         >
-          <option value={1}>1</option>
-          {!isWhitelist && (
-            <>
-              <option value={2}>2</option>
-              <option value={3}>3</option>
-              <option value={4}>4</option>
-              <option value={5}>5</option>
-              <option value={6}>6</option>
-              <option value={7}>7</option>
-              <option value={8}>8</option>
-              <option value={9}>9</option>
-              <option value={10}>10</option>
-            </>
-          )}
+          {getOptions().map(num => (
+            <option key={num} value={num}>
+              {num}
+            </option>
+          ))}
         </Select>
         <Text as='h6' variant='subHeader' marginY='1rem'>
-          <Heading as='h5'>
-            Cost: {config.nftPriceInEgld * quantity} {egldLabel}{' '}
+          <Heading as='h5' size={'lg'}>
+            Cost
           </Heading>
-          = {config.nftPriceInEgld} {egldLabel} x {quantity ? quantity : 0} NFT
+          <Heading as='h5'>
+            {nftPrice * quantity} {egldLabel}{' '}
+          </Heading>
+          = {nftPrice} {egldLabel} x {quantity ? quantity : 0} NFT
           {quantity > 1 ? 's' : ''}
         </Text>
       </FormControl>
 
       <FadeInWhenVisible delay={0.2}>
-        <Button disabled={!quantity} onClick={mint} marginBottom='1rem'>
+        <Button
+          disabled={!quantity}
+          onClick={mint}
+          marginBottom='1rem'
+          variant={'solid'}
+          backgroundColor='#B13FFF'
+        >
           Mint {quantity}
         </Button>
       </FadeInWhenVisible>
-      <Text>Your NFTs will be viewable in your wallet once they are sent.</Text>
-      {/* <DappUI.TransactionsToastList /> */}
     </>
   );
 }
