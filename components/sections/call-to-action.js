@@ -49,7 +49,12 @@ export default function CallToActionButtons({
           <Box>
             <ScaleOnHover>
               <FadeInWhenVisible delay={0.2}>
-                <Button onClick={onClick} disabled={disabled}>
+                <Button
+                  onClick={onClick}
+                  disabled={disabled}
+                  variant={'solid'}
+                  backgroundColor='#B13FFF'
+                >
                   {leftText}
                 </Button>
               </FadeInWhenVisible>

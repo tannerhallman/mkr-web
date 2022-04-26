@@ -25,7 +25,6 @@ export default function faq() {
                 // backgroundColor={'#FFF'}
                 marginBottom={5}
                 paddingY={1}
-                _last={{ borderBottomWidth: 3 }}
               >
                 <AccordionButton>
                   <Box flex='1' textAlign='left'>

@@ -10,7 +10,7 @@ import CountdownTimer from '../components/countdown-timer';
 import Logo from '../components/logo';
 import config from '../constants/config';
 import FadeInWhenVisible from '../components/animation/fade-in-while-visible';
-import Mint from '../components/sections/mint-overview';
+import About from '../components/sections/about';
 import CallToAction from '../components/sections/call-to-action';
 import Faq from '../components/sections/faq';
 import SectionContainer from '../components/sections/section-container';
@@ -39,7 +39,7 @@ export default function Home() {
 
       {timerElapsed ? (
         <Box marginTop='2rem'>
-          <CallToAction leftText={'Mint'} leftRoute='/#mint' />
+          <CallToAction leftText={'Go to Mint'} leftRoute='/mint' />
         </Box>
       ) : (
         <VStack marginTop={{ base: '2rem', md: '2rem' }}>
@@ -50,11 +50,11 @@ export default function Home() {
       )}
       <VStack>
         <SectionContainer
-          id='mint'
+          id='about'
           backgroundColor={useColorModeValue('gray.100', 'gray.900')}
           backgroundPosition='top'
         >
-          <Mint />
+          <About />
         </SectionContainer>
         <SectionContainer
           id='faq'

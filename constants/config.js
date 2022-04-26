@@ -5,8 +5,8 @@ export default {
   projectWebsiteUrl: 'https://www.google.com',
   projectOpenGraphUrl: 'http://www.google.com',
   // format date to string
-  releaseDate: new Date('2022-05-08T16:00:00.000Z'),
-  whitelistDate: new Date('2022-05-07T16:00:00.000Z'),
+  releaseDate: new Date('2022-05-08T20:00:00.000Z'),
+  whitelistDate: new Date('2022-05-07T20:00:00.000Z'),
   discordUrl: 'https://discord.gg/NYGXTYMUzP',
   twitterUrl: 'https://twitter.com/maiarokart',
   nftPriceInEgld: process.env.NEXT_PUBLIC_NFT_PRICE_IN_EGLD || 1,

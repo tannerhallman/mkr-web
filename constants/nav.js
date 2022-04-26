@@ -17,11 +17,19 @@ export const SOCIAL_NAV_ITEMS = [
 
 export const MAIN_NAV = [
   {
-    label: 'Mint',
-    href: '/#mint'
+    label: 'Home',
+    href: '/'
+  },
+  {
+    label: 'About',
+    href: '/#about'
   },
   {
     label: 'FAQ',
     href: '/#faq'
+  },
+  {
+    label: 'Mint',
+    href: '/mint'
   }
 ];

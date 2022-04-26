@@ -7,7 +7,7 @@ import React, { useEffect, useState } from 'react';
 import config from '../constants/config';
 import { MAIN_NAV } from '../constants/nav';
 
-import Navbar2 from './navbar';
+import Navbar from './navbar';
 
 export default function Header() {
   const [navItems, setNavItems] = useState([]);
@@ -33,7 +33,7 @@ export default function Header() {
   return (
     <>
       <Head>
-        <title>{config.projectName} NFT Club</title>
+        <title>{config.projectName}</title>
         <meta name='description' content={config.projectDescription} />
         <link
           rel='apple-touch-icon'
@@ -64,7 +64,7 @@ export default function Header() {
         <meta property='og:url' content={config.projectWebsiteUrl} />
         <meta property='og:image' content={config.projectOpenGraphUrl} />
       </Head>
-      <Navbar2 navItems={navItems} />
+      <Navbar navItems={navItems} />
     </>
   );
 }
