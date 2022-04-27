@@ -249,7 +249,6 @@ export default function Mint() {
                 }
                 alt={config.projectName}
                 w='100%'
-                env
               />
             </Box>
           </FadeInWhenVisible>
