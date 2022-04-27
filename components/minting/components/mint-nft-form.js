@@ -54,8 +54,59 @@ export default function MintNFTForm({ quantityAllowed = 0, nftPrice }) {
     variant: 'solid'
   });
 
-  const { error, onAbort } = useSignTransactions();
+  const {
+    error,
+    onAbort,
+    callbackRoute,
+    transactions: signTransactions,
+    sessionId,
+    hasTransactions
+  } = useSignTransactions();
+  // useGetSignedTransactions
 
+  useEffect(() => {
+    //  log all transaction statuses
+    console.log(
+      'useSignTransactions----',
+      `signTransactions: ${signTransactions} \n`,
+      `callbackRoute: ${callbackRoute} \n`,
+      `transactions: ${signTransactions} \n`,
+      `sessionId: ${sessionId} \n`,
+      `hasTransactions: ${hasTransactions} \n`,
+      `onAbort: ${onAbort} \n`,
+      `error: ${error} \n`
+    );
+  }, [error, onAbort, callbackRoute, transactions, sessionId, hasTransactions]);
+
+  useEffect(() => {
+    console.log('transactionSessionId', transactionSessionId);
+  }, [transactionSessionId]);
+
+  // This is how we pluck out a signed tx from a web wallet redirect and track the status
+  const {
+    hasPendingTransactions,
+    pendingTransactions,
+    pendingTransactionsArray
+  } = transactionServices.useGetPendingTransactions();
+
+  useEffect(() => {
+    if (pendingTransactionsArray.length > 0) {
+      setTransactionSessionId(pendingTransactionsArray[0][0]);
+    }
+    //  log all pending statuses
+    console.log(
+      'useGetPendingTransactions----',
+      `hasPendingTransactions: ${hasPendingTransactions} \n`,
+      `pendingTransactions: ${pendingTransactions} \n`,
+      `pendingTransactionsArray: ${pendingTransactionsArray.length} \n`
+    );
+  }, [
+    hasPendingTransactions,
+    pendingTransactions,
+    pendingTransactionsArray.length
+  ]);
+
+  // tracking a particular tx for status changes
   const {
     isPending,
     isSuccessful,
@@ -71,14 +122,24 @@ export default function MintNFTForm({ quantityAllowed = 0, nftPrice }) {
   useEffect(() => {
     //  log all transaction statuses
     console.log(
-      `isPending ${isPending}`,
-      `isSuccessful ${isSuccessful}`,
-      `isFailed ${isFailed}`,
-      `isCancelled ${isCancelled}`,
-      `errorMessage ${errorMessage}`,
-      status
+      'useTrackTransactionStatus---\n',
+      `isPending: ${isPending},\n`,
+      `isSuccessful: ${isSuccessful},\n`,
+      `isFailed: ${isFailed},\n`,
+      `isCancelled: ${isCancelled},\n`,
+      `errorMessage: ${errorMessage},\n`,
+      `status: ${status} \n`,
+      `transactions: ${transactions}`
     );
-  }, [isPending, isSuccessful, isFailed, isCancelled]);
+  }, [
+    isPending,
+    isSuccessful,
+    isFailed,
+    isCancelled,
+    errorMessage,
+    status,
+    transactions
+  ]);
 
   const cancelTransaction = useCallback(() => {
     setAttemptingTx(false);
@@ -107,7 +168,6 @@ export default function MintNFTForm({ quantityAllowed = 0, nftPrice }) {
   useEffect(() => {
     if (transactionSessionId && errorMessage) {
       setErrorString(errorMessage);
-      debugger;
       setAttemptingTx(false);
       setTransactionTimeout(null);
     }
@@ -144,10 +204,10 @@ export default function MintNFTForm({ quantityAllowed = 0, nftPrice }) {
       receiver: process.env.NEXT_PUBLIC_SMART_CONTRACT_ADDRESS,
       value: Balance.egld(quantity * config.nftPriceInEgld),
       data: `${mintFunctionName}@${convertToDecimalToHex(quantity)}`,
-      gasLimit: quantity * 6_500_000
+      gasLimit: quantity * 60_500_000
     };
 
-    // await refreshAccount();
+    await refreshAccount();
 
     const hash = await transactionServices.sendTransactions({
       transactions: [transaction],
@@ -168,41 +228,6 @@ export default function MintNFTForm({ quantityAllowed = 0, nftPrice }) {
     }
   }
 
-  if (isPending) {
-    return (
-      <Text>
-        <Spinner /> Awaiting pending transaction...
-      </Text>
-    );
-  }
-  if (attemptingTx) {
-    return (
-      <Text>
-        <Spinner /> Waiting for signing... Please check your wallet.
-      </Text>
-    );
-  }
-  if (error) {
-    return (
-      <Box>
-        <Text marginY='1rem'>
-          <Alert status='error' background='rgba(144, 205, 244, 0.16)'>
-            <AlertIcon />
-            {error.message}
-          </Alert>
-        </Text>
-        <Button
-          color='white'
-          background='blackAlpha.600'
-          _hover={{ background: 'whiteAlpha.300' }}
-          onClick={reset}
-        >
-          Retry
-        </Button>
-      </Box>
-    );
-  }
-
   function getOptions() {
     // trash
     const arr = [];
@@ -211,6 +236,22 @@ export default function MintNFTForm({ quantityAllowed = 0, nftPrice }) {
     }
     return arr;
   }
+
+  if (isPending) {
+    return (
+      <Text>
+        <Spinner /> Transaction pending...
+      </Text>
+    );
+  }
+  if (attemptingTx) {
+    return (
+      <Text>
+        <Spinner /> Waiting for tx signature...Please check your wallet.
+      </Text>
+    );
+  }
+
   return (
     <>
       <FormControl marginY='2rem' id='quantity'>
