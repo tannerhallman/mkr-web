@@ -64,7 +64,7 @@ export default function MintSuccess() {
                 </Box>
                 <Box marginBottom='2rem'>
                   <Text color='white'>
-                    You will be able to particpate in the whitelist sale on{' '}
+                    You will be able to participate in the whitelist sale on{' '}
                     {config.whitelistDate.toLocaleDateString()}
                     {!whitelistAddress
                       ? '.'
