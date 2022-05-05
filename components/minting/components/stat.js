@@ -9,10 +9,6 @@ import {
   useColorModeValue
 } from '@chakra-ui/react';
 
-import { BsPerson } from 'react-icons/bs';
-import { FiServer } from 'react-icons/fi';
-import { GoLocation } from 'react-icons/go';
-
 export default function StatsCard(props) {
   const { title, stat, icon } = props;
   return (
@@ -43,5 +39,4 @@ export default function StatsCard(props) {
       </Flex>
     </Stat>
   );
-  ``;
 }

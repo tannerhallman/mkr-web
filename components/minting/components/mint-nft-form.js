@@ -30,9 +30,9 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { convertToDecimalToHex } from '../smartContractUtils/funcs';
 import FadeInWhenVisible from '../../animation/fade-in-while-visible';
 import config from '../../../constants/config';
+const mintFunctionName = process.env.NEXT_PUBLIC_MINT_FUNC_NAME || 'mint';
 
 const DEFAULT_TIMEOUT = 5 * 60 * 1000;
-const mintFunctionName = process.env.NEXT_PUBLIC_MINT_FUNC_NAME || 'mint';
 
 export default function MintNFTForm({ quantityAllowed = 0, nftPrice }) {
   const { address } = useGetAccountInfo();
@@ -292,7 +292,7 @@ export default function MintNFTForm({ quantityAllowed = 0, nftPrice }) {
           variant={'solid'}
           backgroundColor='#B13FFF'
         >
-          Mint {quantity}
+          Mint
         </Button>
       </FadeInWhenVisible>
     </>

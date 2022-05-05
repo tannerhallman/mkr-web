@@ -116,7 +116,9 @@ export default function Mint() {
 
   useEffect(() => {
     // minting is ON and the whitelist is not enforced
-    setIsPublicSale(!isMintingPaused && !isWhitelistEnabled);
+    const isMintLive = !isMintingPaused;
+    setIsPublicSale(isMintLive && !isWhitelistEnabled);
+
     console.log(
       'isMintingPaused',
       isMintingPaused,
@@ -158,7 +160,9 @@ export default function Mint() {
   }
 
   function renderMintForm() {
-    if (isPublicSale || (isWhitelistEnabled && amIWhitelisted)) {
+    const isMintLive = !isMintingPaused;
+
+    if (isPublicSale || (isMintLive && isWhitelistEnabled && amIWhitelisted)) {
       const price = nftPrice / 1000000000000000000;
       return (
         <MintNFTForm
