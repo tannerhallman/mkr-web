@@ -6,11 +6,13 @@ import {
   Stat,
   StatLabel,
   StatNumber,
-  useColorModeValue
+  useColorModeValue,
+  Text,
+  Spinner
 } from '@chakra-ui/react';
 
 export default function StatsCard(props) {
-  const { title, stat, icon } = props;
+  const { title, stat, icon, loading } = props;
   return (
     <Stat
       px={{ base: 2, md: 4 }}
@@ -23,7 +25,9 @@ export default function StatsCard(props) {
       <Flex justifyContent={'space-between'}>
         <Box pl={{ base: 2, md: 4 }}>
           <StatLabel fontWeight={'medium'} isTruncated>
-            {title}
+            <Text>
+              {title} {loading ? <Spinner /> : null}
+            </Text>
           </StatLabel>
           <StatNumber fontSize={'xl'} fontWeight={'medium'}>
             {stat}

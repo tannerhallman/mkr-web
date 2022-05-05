@@ -16,6 +16,7 @@ function useIsWhitelisted(address) {
   const toast = useToast({ position: 'bottom', variant: 'solid' });
 
   const functionName = 'getTotalTokensLeft';
+  const intervalMs = 1000 * 5;
 
   const getQuantityAvailable = async () => {
     const response = await runSCFunction({
@@ -40,7 +41,10 @@ function useIsWhitelisted(address) {
     }
   };
 
-  return useQuery(functionName, getQuantityAvailable);
+  return useQuery(functionName, getQuantityAvailable, {
+    // Refetch the data every second
+    refetchInterval: intervalMs
+  });
 }
 
 export default useIsWhitelisted;

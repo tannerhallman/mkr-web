@@ -55,10 +55,10 @@ export default function Mint() {
   // const isWhitelistEnabled = new Date() >= new Date(config.whitelistDate);
   // const isMintingPaused = new Date() >= new Date(config.releaseDate);
   const {
-    isLoading: loadingMintStatus,
-    isError: isMintStatusError,
+    isLoading: loadingIsMintingPaused,
+    isError: isMintingPausedError,
     data: isMintingPaused,
-    error: MintStatusError
+    error: MintingPausedError
   } = useIsMintingPaused();
 
   const {
@@ -208,6 +208,7 @@ export default function Mint() {
       <SimpleGrid marginBottom='1rem' columns={2} spacing={6}>
         <Stat
           title={'Minting'}
+          loading={loadingIsMintingPaused}
           stat={
             <>
               <Icon as={MdCircle} color={isMintingPaused ? 'red' : 'green'} />{' '}
@@ -220,6 +221,7 @@ export default function Mint() {
             title={`Whitelist ${
               totalWhitelistSize ? `(${totalWhitelistSize})` : ''
             }`}
+            loading={loadingWhitelistStatus}
             stat={
               <>
                 <Icon

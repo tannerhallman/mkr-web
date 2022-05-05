@@ -17,6 +17,7 @@ function useIsMintingPaused(isWhitelist) {
     position: 'bottom',
     variant: 'solid'
   });
+  const intervalMs = 1000 * 5;
   // check for public sale
   const mintStatus = 'isMintingPaused';
 
@@ -57,7 +58,10 @@ function useIsMintingPaused(isWhitelist) {
     }
   };
 
-  return useQuery(functionName, getIsMintingPaused);
+  return useQuery(functionName, getIsMintingPaused, {
+    // Refetch the data every second
+    refetchInterval: intervalMs
+  });
 }
 
 export default useIsMintingPaused;
