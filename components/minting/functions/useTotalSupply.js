@@ -15,7 +15,7 @@ import {
 function useTotalSupply() {
   const toast = useToast({ position: 'bottom', variant: 'solid' });
 
-  const functionName = 'getTotalTokens';
+  const functionName = 'getTotalSupply';
 
   const getTotalSupply = async () => {
     const response = await runSCFunction({
