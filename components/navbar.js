@@ -17,7 +17,9 @@ import {
   Stack,
   Tag,
   TagLabel,
-  Image
+  Image,
+  Badge,
+  Text
 } from '@chakra-ui/react';
 import {
   HamburgerIcon,
@@ -102,7 +104,20 @@ export default function Navbar() {
           <HStack as={'nav'} spacing={4} display={{ base: 'none', md: 'flex' }}>
             {MAIN_NAV.map(item => (
               <NavLink key={item.label} href={item.href}>
-                {item.label}
+                {item.badge ? (
+                  <Text fontSize='lg' fontWeight='bold'>
+                    <Badge
+                      ml='1'
+                      fontSize='0.8em'
+                      colorScheme='green'
+                      _hover={{ background: 'whiteAlpha.500' }}
+                    >
+                      {item.label}
+                    </Badge>
+                  </Text>
+                ) : (
+                  item.label
+                )}
               </NavLink>
             ))}
           </HStack>

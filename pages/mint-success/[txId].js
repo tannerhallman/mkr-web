@@ -77,6 +77,7 @@ export default function MintSuccess() {
                     _active={{ background: 'whiteAlpha.300' }}
                     _hover={{ background: 'whiteAlpha.300' }}
                     background='blackAlpha.600'
+                    marginRight='1rem'
                     onClick={() =>
                       window.open(
                         `https://${
@@ -98,8 +99,17 @@ export default function MintSuccess() {
                     background='blackAlpha.600'
                     onClick={mintMore}
                   >
-                    <Icon as={VscDebugRestart} />
+                    <Icon as={VscDebugRestart} marginRight='0.5rem' />
                     Mint Again
+                  </Button>
+                </Box>
+                <Box marginBottom='2rem'>
+                  <Button
+                    mr={3}
+                    onClick={() => router.push('/wallet')}
+                    colorScheme='green'
+                  >
+                    View my NFTs
                   </Button>
                 </Box>
               </Box>

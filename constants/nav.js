@@ -29,7 +29,13 @@ export const MAIN_NAV = [
     href: '/#faq'
   },
   {
+    label: 'My NFTs',
+    href: '/wallet',
+    requiresAddress: true
+  },
+  {
     label: 'Mint',
-    href: '/mint'
+    href: '/mint',
+    badge: true
   }
 ];
