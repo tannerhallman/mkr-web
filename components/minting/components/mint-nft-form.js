@@ -27,15 +27,14 @@ import { useRouter } from 'next/router';
 
 import React, { useEffect, useState, useCallback } from 'react';
 
-import FadeInWhenVisible from '../animation/fade-in-while-visible';
-import config from '../../constants/config';
-
-import { convertToDecimalToHex } from './smartContractUtils/funcs';
-
-const DEFAULT_TIMEOUT = 5 * 60 * 1000;
+import { convertToDecimalToHex } from '../smartContractUtils/funcs';
+import FadeInWhenVisible from '../../animation/fade-in-while-visible';
+import config from '../../../constants/config';
 const mintFunctionName = process.env.NEXT_PUBLIC_MINT_FUNC_NAME || 'mint';
 
-export default function MintNFTForm({ isWhitelist = false }) {
+const DEFAULT_TIMEOUT = 5 * 60 * 1000;
+
+export default function MintNFTForm({ quantityAllowed = 0, nftPrice }) {
   const { address } = useGetAccountInfo();
   const {
     network: { egldLabel }
@@ -50,10 +49,64 @@ export default function MintNFTForm({ isWhitelist = false }) {
 
   const [errorString, setErrorString] = useState(null);
 
-  const toast = useToast({ position: 'bottom', variant: 'solid' });
+  const toast = useToast({
+    position: 'bottom',
+    variant: 'solid'
+  });
 
-  const { error, onAbort } = useSignTransactions();
+  const {
+    error,
+    onAbort,
+    callbackRoute,
+    transactions: signTransactions,
+    sessionId,
+    hasTransactions
+  } = useSignTransactions();
+  // useGetSignedTransactions
 
+  useEffect(() => {
+    //  log all transaction statuses
+    console.log(
+      'useSignTransactions----',
+      `signTransactions: ${signTransactions} \n`,
+      `callbackRoute: ${callbackRoute} \n`,
+      `transactions: ${signTransactions} \n`,
+      `sessionId: ${sessionId} \n`,
+      `hasTransactions: ${hasTransactions} \n`,
+      `onAbort: ${onAbort} \n`,
+      `error: ${error} \n`
+    );
+  }, [error, onAbort, callbackRoute, transactions, sessionId, hasTransactions]);
+
+  useEffect(() => {
+    console.log('transactionSessionId', transactionSessionId);
+  }, [transactionSessionId]);
+
+  // This is how we pluck out a signed tx from a web wallet redirect and track the status
+  const {
+    hasPendingTransactions,
+    pendingTransactions,
+    pendingTransactionsArray
+  } = transactionServices.useGetPendingTransactions();
+
+  useEffect(() => {
+    if (pendingTransactionsArray.length > 0) {
+      setTransactionSessionId(pendingTransactionsArray[0][0]);
+    }
+    //  log all pending statuses
+    console.log(
+      'useGetPendingTransactions----',
+      `hasPendingTransactions: ${hasPendingTransactions} \n`,
+      `pendingTransactions: ${pendingTransactions} \n`,
+      `pendingTransactionsArray: ${pendingTransactionsArray.length} \n`
+    );
+  }, [
+    hasPendingTransactions,
+    pendingTransactions,
+    pendingTransactionsArray.length
+  ]);
+
+  // tracking a particular tx for status changes
   const {
     isPending,
     isSuccessful,
@@ -69,14 +122,24 @@ export default function MintNFTForm({ isWhitelist = false }) {
   useEffect(() => {
     //  log all transaction statuses
     console.log(
-      `isPending ${isPending}`,
-      `isSuccessful ${isSuccessful}`,
-      `isFailed ${isFailed}`,
-      `isCancelled ${isCancelled}`,
-      `errorMessage ${errorMessage}`,
-      status
+      'useTrackTransactionStatus---\n',
+      `isPending: ${isPending},\n`,
+      `isSuccessful: ${isSuccessful},\n`,
+      `isFailed: ${isFailed},\n`,
+      `isCancelled: ${isCancelled},\n`,
+      `errorMessage: ${errorMessage},\n`,
+      `status: ${status} \n`,
+      `transactions: ${transactions}`
     );
-  }, [isPending, isSuccessful, isFailed, isCancelled]);
+  }, [
+    isPending,
+    isSuccessful,
+    isFailed,
+    isCancelled,
+    errorMessage,
+    status,
+    transactions
+  ]);
 
   const cancelTransaction = useCallback(() => {
     setAttemptingTx(false);
@@ -105,7 +168,6 @@ export default function MintNFTForm({ isWhitelist = false }) {
   useEffect(() => {
     if (transactionSessionId && errorMessage) {
       setErrorString(errorMessage);
-      debugger;
       setAttemptingTx(false);
       setTransactionTimeout(null);
     }
@@ -142,10 +204,10 @@ export default function MintNFTForm({ isWhitelist = false }) {
       receiver: process.env.NEXT_PUBLIC_SMART_CONTRACT_ADDRESS,
       value: Balance.egld(quantity * config.nftPriceInEgld),
       data: `${mintFunctionName}@${convertToDecimalToHex(quantity)}`,
-      gasLimit: quantity * 6_500_000
+      gasLimit: quantity * 60_500_000
     };
 
-    // await refreshAccount();
+    await refreshAccount();
 
     const hash = await transactionServices.sendTransactions({
       transactions: [transaction],
@@ -157,49 +219,36 @@ export default function MintNFTForm({ isWhitelist = false }) {
     if (hash) {
       if (hash.error) {
         setErrorString(hash.error);
-        debugger;
         setAttemptingTx(false);
       } else if (hash.sessionId) {
         setTransactionSessionId(hash.sessionId);
       }
     } else {
       setAttemptingTx(false);
-      debugger;
     }
+  }
+
+  function getOptions() {
+    // trash
+    const arr = [];
+    for (var i = 1; i < quantityAllowed + 1; i++) {
+      arr.push(i);
+    }
+    return arr;
   }
 
   if (isPending) {
     return (
       <Text>
-        <Spinner /> Awaiting pending transaction...
+        <Spinner /> Transaction pending...
       </Text>
     );
   }
   if (attemptingTx) {
     return (
       <Text>
-        <Spinner /> Waiting for signing... Please check your wallet.
+        <Spinner /> Waiting for tx signature...Please check your wallet.
       </Text>
-    );
-  }
-  if (error) {
-    return (
-      <Box>
-        <Text marginY='1rem'>
-          <Alert status='error' background='rgba(144, 205, 244, 0.16)'>
-            <AlertIcon />
-            {error.message}
-          </Alert>
-        </Text>
-        <Button
-          color='white'
-          background='blackAlpha.600'
-          _hover={{ background: 'whiteAlpha.300' }}
-          onClick={reset}
-        >
-          Retry
-        </Button>
-      </Box>
     );
   }
 
@@ -217,37 +266,35 @@ export default function MintNFTForm({ isWhitelist = false }) {
           boxShadow='xl'
           onChange={input => setQuantity(input.target.value)}
         >
-          <option value={1}>1</option>
-          {!isWhitelist && (
-            <>
-              <option value={2}>2</option>
-              <option value={3}>3</option>
-              <option value={4}>4</option>
-              <option value={5}>5</option>
-              <option value={6}>6</option>
-              <option value={7}>7</option>
-              <option value={8}>8</option>
-              <option value={9}>9</option>
-              <option value={10}>10</option>
-            </>
-          )}
+          {getOptions().map(num => (
+            <option key={num} value={num}>
+              {num}
+            </option>
+          ))}
         </Select>
         <Text as='h6' variant='subHeader' marginY='1rem'>
-          <Heading as='h5'>
-            Cost: {config.nftPriceInEgld * quantity} {egldLabel}{' '}
+          <Heading as='h5' size={'lg'}>
+            Cost
           </Heading>
-          = {config.nftPriceInEgld} {egldLabel} x {quantity ? quantity : 0} NFT
+          <Heading as='h5'>
+            {nftPrice * quantity} {egldLabel}{' '}
+          </Heading>
+          = {nftPrice} {egldLabel} x {quantity ? quantity : 0} NFT
           {quantity > 1 ? 's' : ''}
         </Text>
       </FormControl>
 
       <FadeInWhenVisible delay={0.2}>
-        <Button disabled={!quantity} onClick={mint} marginBottom='1rem'>
-          Mint {quantity}
+        <Button
+          disabled={!quantity}
+          onClick={mint}
+          marginBottom='1rem'
+          variant={'solid'}
+          backgroundColor='#B13FFF'
+        >
+          Mint
         </Button>
       </FadeInWhenVisible>
-      <Text>Your NFTs will be viewable in your wallet once they are sent.</Text>
-      {/* <DappUI.TransactionsToastList /> */}
     </>
   );
 }

@@ -1,15 +1,17 @@
 import { Flex, Spinner } from '@chakra-ui/react';
+
 import { loginServices } from '@elrondnetwork/dapp-core';
+
 import { useEffect, useState } from 'react';
 
-export default function ExtensionLogin({ onClose }) {
+export default function ExtensionLogin({ onClose, callbackRoute }) {
   const [hasExtension, setHasExtension] = useState(null);
 
   const [
     initiateLogin,
     { isLoggedIn, error, loginFailed }
   ] = loginServices.useExtensionLogin({
-    callbackRoute: '/',
+    callbackRoute: callbackRoute,
     redirectAfterLogin: false
   });
 

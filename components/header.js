@@ -20,16 +20,6 @@ export default function Header() {
     setNavItems(items);
   }, [address]);
 
-  useEffect(() => {
-    if (isLoggedIn && window.location.search) {
-      window.history.replaceState(
-        null,
-        config.projectName,
-        window.location.origin
-      );
-    }
-  }, [isLoggedIn]);
-
   return (
     <>
       <Head>

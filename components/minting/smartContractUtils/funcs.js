@@ -5,8 +5,11 @@ import {
   ProxyProvider
 } from '@elrondnetwork/erdjs';
 
-const proxyUrl =
-  process.env.NEXT_PUBLIC_PROXY_URL || 'https://devnet-api.elrond.com';
+const network = process.env.NEXT_PUBLIC_ELROND_NETWORK || 'devnet';
+
+const proxyUrl = `https://${
+  network === 'devnet' ? 'devnet-' : ''
+}api.elrond.com`;
 const proxyTimeout = 30 * 1000; // 30 sec
 
 export function smartContract() {
