@@ -217,7 +217,7 @@ export default function Mint() {
         />
         <Stat
           title={`Whitelist ${
-            totalWhitelistSize ? `(${totalWhitelistSize})` : undefined
+            totalWhitelistSize ? `(${totalWhitelistSize})` : ''
           }`}
           stat={
             <>
