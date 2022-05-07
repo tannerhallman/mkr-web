@@ -215,20 +215,22 @@ export default function Mint() {
             </>
           }
         />
-        <Stat
-          title={`Whitelist ${
-            totalWhitelistSize ? `(${totalWhitelistSize})` : ''
-          }`}
-          stat={
-            <>
-              <Icon
-                as={isPublicSale ? FaLockOpen : FaLock}
-                color={'grey.200'}
-              />{' '}
-              {isPublicSale ? 'Not Required' : 'Required'}
-            </>
-          }
-        />
+        {isWhitelistEnabled && (
+          <Stat
+            title={`Whitelist ${
+              totalWhitelistSize ? `(${totalWhitelistSize})` : ''
+            }`}
+            stat={
+              <>
+                <Icon
+                  as={isPublicSale ? FaLockOpen : FaLock}
+                  color={'grey.200'}
+                />{' '}
+                {isPublicSale ? 'Not Required' : 'Required'}
+              </>
+            }
+          />
+        )}
       </SimpleGrid>
     );
   }
