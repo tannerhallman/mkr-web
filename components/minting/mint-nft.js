@@ -274,6 +274,12 @@ export default function Mint() {
             </Box>
             <Box paddingX='3rem' paddingTop='2rem' paddingBottom='1rem'>
               {renderStatsGrid()}
+              {isWhitelistEnabled && (
+                <Text marginY='1rem'>
+                  You are allowed to mint 5 in the whitelist! Attempting to mint
+                  more than 5 will fail.
+                </Text>
+              )}
             </Box>
             <Box marginBottom={12} paddingX='3rem'>
               {renderAmIWhitelisted()}
