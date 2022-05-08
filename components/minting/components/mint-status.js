@@ -6,11 +6,11 @@ export default function MintStatus({ quantityMinted, quantityTotal, loading }) {
   return (
     <Box marginBottom='1rem'>
       <Heading as='h2' size='lg' color='grey.400'>
-        Total Minted
+        Sold Out!
       </Heading>
       <Skeleton height='20px' isLoaded={!loading}>
         <Heading as='h2' size='2xl'>
-          {quantityMinted} / {quantityTotal}
+          2000 / 2000
         </Heading>
       </Skeleton>
     </Box>
