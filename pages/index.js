@@ -39,7 +39,7 @@ export default function Home() {
 
       {timerElapsed ? (
         <Box marginTop='2rem'>
-          <CallToAction leftText={'Go to Mint'} leftRoute='/mint' />
+          <CallToAction leftText={'SOLD OUT!'} leftRoute='/mint' />
         </Box>
       ) : (
         <VStack marginTop={{ base: '2rem', md: '2rem' }}>

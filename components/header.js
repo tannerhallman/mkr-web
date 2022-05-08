@@ -1,3 +1,10 @@
+import {
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription
+} from '@chakra-ui/react';
+
 import { useGetAccountInfo, useGetLoginInfo } from '@elrondnetwork/dapp-core';
 
 import Head from 'next/head';
@@ -55,6 +62,15 @@ export default function Header() {
         <meta property='og:image' content={config.projectOpenGraphUrl} />
       </Head>
       <Navbar navItems={navItems} />
+      <Alert status='success'>
+        <AlertIcon />
+        <AlertTitle>Sold out!</AlertTitle>
+        <AlertDescription>
+          Thank you to our wonderful community. We have officially sold out the
+          first edition!
+        </AlertDescription>
+      </Alert>
+      ;
     </>
   );
 }
