@@ -99,15 +99,17 @@ export default function NFT({
               {name}
               <IconButton
                 marginLeft={2}
-                size={'md'}
+                size={'sm'}
                 icon={<MdImageSearch />}
                 aria-label={'View Png'}
-                onClick={window.open(
-                  `https://gateway.pinata.cloud/ipfs/QmR3RuVRxzbkyaow1CHraiAk6MvPMUuKr6ucekqb813hUR/${
-                    name.split('#')[0]
-                  }.png`,
-                  '_blank'
-                )}
+                onClick={() =>
+                  window.open(
+                    `https://gateway.pinata.cloud/ipfs/QmR3RuVRxzbkyaow1CHraiAk6MvPMUuKr6ucekqb813hUR/${
+                      name.split('#')[0]
+                    }.png`,
+                    '_blank'
+                  )
+                }
               />
             </Text>
           </Box>
