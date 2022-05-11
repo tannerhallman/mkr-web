@@ -76,13 +76,6 @@ export default function ListNFTs() {
       {!isLoading && data.data.length === 0 && (
         <>
           <Text>You have no Maiar Kart Racing Nfts yet.</Text>
-          <Button
-            marginTop='1rem'
-            colorScheme='green'
-            onClick={() => router.push('/mint')}
-          >
-            Mint Now
-          </Button>
         </>
       )}
     </>

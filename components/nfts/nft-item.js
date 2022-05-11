@@ -1,7 +1,8 @@
 import { Box, Badge, Center, Image, Stack, Text } from '@chakra-ui/react';
 
-import ProductVideo from './product-video';
+import { MdImageSearch } from 'react-icons/md';
 
+import ProductVideo from './product-video';
 export default function NFT({
   url,
   collectionName,
@@ -88,6 +89,18 @@ export default function NFT({
               title={name}
             >
               {name}
+              <IconButton
+                marginLeft={2}
+                size={'md'}
+                icon={<MdImageSearch />}
+                aria-label={'View Png'}
+                onClick={window.open(
+                  `https://gateway.pinata.cloud/ipfs/QmR3RuVRxzbkyaow1CHraiAk6MvPMUuKr6ucekqb813hUR/${
+                    name.split('#')[0]
+                  }.png`,
+                  '_blank'
+                )}
+              />
             </Text>
           </Box>
           <Box display='flex' flexDir='column' flex={1}>
@@ -98,17 +111,6 @@ export default function NFT({
               marginBottom={[1, 0]}
               color='#c423c6'
             >
-              {/* <Text
-                ml={1}
-                fontSize='sm'
-                overflow='hidden'
-                textOverflow='ellipsis'
-                whiteSpace='nowrap'
-                title={name}
-              >
-                {' '}
-                {collectionName}
-              </Text> */}
               <Badge
                 fontSize='0.8em'
                 colorScheme='green'
