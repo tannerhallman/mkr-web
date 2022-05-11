@@ -105,7 +105,7 @@ export default function NFT({
                 onClick={() =>
                   window.open(
                     `https://gateway.pinata.cloud/ipfs/QmR3RuVRxzbkyaow1CHraiAk6MvPMUuKr6ucekqb813hUR/${
-                      name.split('#')[0]
+                      name.split('#')[1]
                     }.png`,
                     '_blank'
                   )
