@@ -32,10 +32,10 @@ export const MAIN_NAV = [
     label: 'My NFTs',
     href: '/wallet',
     requiresAddress: true
-  },
-  {
-    label: 'Mint',
-    href: '/mint',
-    badge: true
   }
+  // {
+  //   label: 'Mint',
+  //   href: '/mint',
+  //   badge: true
+  // }
 ];
