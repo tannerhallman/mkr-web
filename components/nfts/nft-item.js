@@ -1,4 +1,12 @@
-import { Box, Badge, Center, Image, Stack, Text } from '@chakra-ui/react';
+import {
+  Box,
+  Badge,
+  Center,
+  Image,
+  Stack,
+  Text,
+  IconButton
+} from '@chakra-ui/react';
 
 import { MdImageSearch } from 'react-icons/md';
 
