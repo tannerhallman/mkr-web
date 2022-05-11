@@ -70,7 +70,6 @@ export default function Header() {
           first edition!
         </AlertDescription>
       </Alert>
-      ;
     </>
   );
 }
